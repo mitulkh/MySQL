@@ -8,7 +8,7 @@ USE employee;
 CREATE TABLE hobby(id int(12), name varchar(24), primary key(id));
 CREATE TABLE employee(id int(12), first_name varchar(15), last_name varchar(15),age tinyint(3), mobile_number varchar(10), address varchar(65), primary key(id));
 CREATE TABLE employee_salary(id int(12), salary decimal(8,2), date date, fk_employee_id int(12), foreign key(fk_employee_id) references employee(id), primary key(id));
-CREATE TABLE employee_hobby(id int(12), fk_employee_id int(12), fk_hobby_id int(12), foreign key(fk_employee_id) references employee(id), foreign key(fk_hobby_id) references hobby(id), primary key(id
+CREATE TABLE employee_hobby(id int(12), fk_employee_id int(12), fk_hobby_id int(12), foreign key(fk_employee_id) references employee(id), foreign key(fk_hobby_id) references hobby(id), primary key(id));
 
 -- Separate SELECT query to get a hobby, employee, employee_salary and employee_hobby
 SELECT * FROM hobby;
@@ -88,3 +88,21 @@ select first_name from employee union select name from hobby;
 -- Create a select query to get  employee name, his/her employee_salary
 select concat(e.first_name, ' ', e.last_name) as full_name, es.salary from employee as e inner join employee_salary as es on e.id = es.fk_employee_id;
 
+update hobby set name = "Singing" where id = 201;
+update hobby set name = "Dancing" where id = 202;
+update hobby set name = "Gaming" where id = 203;
+update hobby set name = "Travelling" where id = 204;
+update hobby set name = "Exploring" where id = 205;
+
+-- Create a select query to get employee name, total salary of employee, hobby name(comma-separated - you need to use subquery for hobby name)
+select concat(e.first_name, ' ',e.last_name) as full_name, sum(es.salary) as total_salary,
+(select group_concat(h.name) from hobby as h
+inner join employee_hobby as eh on h.id = eh.fk_hobby_id and e.id = eh.fk_employee_id) as hobby_name 
+from employee as e
+left join employee_salary as es 
+	on e.id = es.fk_employee_id
+group by e.id;
+
+-- Create a example of Left Join and Right Join using employee and employee_salary
+SELECT concat(e.first_name, " ",e.last_name) as full_name, es.salary, es.fk_employee_id FROM employee as e left join employee_salary as es on e.id = es.fk_employee_id;
+SELECT concat(e.first_name, " ",e.last_name) as full_name, es.salary, es.fk_employee_id FROM employee as e right join employee_salary as es on e.id = es.fk_employee_id;
