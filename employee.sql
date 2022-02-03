@@ -87,6 +87,8 @@ select first_name from employee union select name from hobby;
 
 -- Create a select query to get  employee name, his/her employee_salary
 select concat(e.first_name, ' ', e.last_name) as full_name, es.salary from employee as e inner join employee_salary as es on e.id = es.fk_employee_id;
+select concat(e.first_name, ' ',e.last_name) as full_name, sum(salary) as sum_salary from employee as e inner join employee_salary as es on e.id = es.fk_employee_id 
+group by e.first_name;
 
 update hobby set name = "Singing" where id = 201;
 update hobby set name = "Dancing" where id = 202;
