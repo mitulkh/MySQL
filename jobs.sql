@@ -58,7 +58,7 @@ group by e.id;
 
 -- Get 2nd highest salary of the employee
 select * from employee order by salary desc limit 1,1;
-select concat(e.firstname, " ", e.lastname) as name, max(salary) from employee as e where salary < (select max(salary)  from employee); 
+
 
 -- Get all job name and department name in single query
 select j.name from job as j union select d.name from department as d; 
