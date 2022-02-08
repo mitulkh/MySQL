@@ -225,10 +225,10 @@ VALUES      ("amit",
              5);
 
 -- Create select query get name (firstname + lastname) with department name, country name, job name
-SELECT Concat(e.firstname, "", e.lastname) AS name,
-       d.name                               AS department_name,
-       c.name                               AS country_name,
-       j.name                               AS job_name
+SELECT concat(e.firstname, "", e.lastname) AS name,
+       d.name AS department_name,
+       c.name AS country_name,
+       j.name AS job_name
 FROM   employee AS e
        LEFT JOIN department AS d
               ON d.id = e.fk_department_id
