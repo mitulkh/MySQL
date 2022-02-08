@@ -1,64 +1,252 @@
 -- Create database of Jobs
-create database jobs;
+CREATE DATABASE jobs;
 
 -- Select jobs database for use
-use jobs; 
+USE jobs;
 
 -- Create a table(job, country, department, employee)
-create table job(id int not null auto_increment, name varchar(34), min_salary decimal(7,2), max_salary decimal(7,2), primary key(id));
-create table country(id int not null auto_increment, name varchar(34), primary key(id));
+CREATE TABLE job
+  (
+     id         INT NOT NULL auto_increment,
+     name       VARCHAR(34),
+     min_salary DECIMAL(7, 2),
+     max_salary DECIMAL(7, 2),
+     PRIMARY KEY(id)
+  );
 
-create table department(id int not null auto_increment, name varchar(34), fk_country_id int(10), foreign key(fk_country_id)
- references country(id) on update cascade on delete cascade, primary key(id));
- 
-create table employee(id int not null auto_increment, firstname varchar(15), lastname varchar(15), email varchar(55), salary decimal(7,2),
- fk_department_id int(10), fk_job_id int(10), foreign key(fk_department_id) references department(id) on update cascade on delete cascade,
- foreign key(fk_job_id) references job(id) on update cascade on delete cascade, primary key(id));
- 
- -- Separate SELECT query to get a hobby, employee, employee_salary and employee_hobby
- select * from job;
- select * from country;
- select * from department;
- select * from employee;
- 
+CREATE TABLE country
+  (
+     id   INT NOT NULL auto_increment,
+     name VARCHAR(34),
+     PRIMARY KEY(id)
+  );
+
+CREATE TABLE department
+  (
+     id            INT NOT NULL auto_increment,
+     name          VARCHAR(34),
+     fk_country_id INT(10),
+     FOREIGN KEY(fk_country_id) REFERENCES country(id) ON UPDATE CASCADE ON
+     DELETE CASCADE,
+     PRIMARY KEY(id)
+  );
+
+CREATE TABLE employee
+  (
+     id               INT NOT NULL auto_increment,
+     firstname        VARCHAR(15),
+     lastname         VARCHAR(15),
+     email            VARCHAR(55),
+     salary           DECIMAL(7, 2),
+     fk_department_id INT(10),
+     fk_job_id        INT(10),
+     FOREIGN KEY(fk_department_id) REFERENCES department(id) ON UPDATE CASCADE
+     ON DELETE CASCADE,
+     FOREIGN KEY(fk_job_id) REFERENCES job(id) ON UPDATE CASCADE ON DELETE
+     CASCADE,
+     PRIMARY KEY(id)
+  );
+
+-- Separate SELECT query to get a hobby, employee, employee_salary and employee_hobby
+SELECT *
+FROM   job;
+
+SELECT *
+FROM   country;
+
+SELECT *
+FROM   department;
+
+SELECT *
+FROM   employee;
+
 -- Insert data into job table
-insert into job(name, min_salary, max_salary) values ("Junior Developer", 10000, 50000);
-insert into job(name, min_salary, max_salary) values ("Senior Developer", 20000, 60000);
-insert into job(name, min_salary, max_salary) values ("Intern", 2000, 10000);
-insert into job(name, min_salary, max_salary) values ("Marketing", 30000, 50000);
-insert into job(name, min_salary, max_salary) values ("MBA", 10000, 40000);
+INSERT INTO job
+            (name,
+             min_salary,
+             max_salary)
+VALUES      ("junior developer",
+             10000,
+             50000);
+
+INSERT INTO job
+            (name,
+             min_salary,
+             max_salary)
+VALUES      ("senior developer",
+             20000,
+             60000);
+
+INSERT INTO job
+            (name,
+             min_salary,
+             max_salary)
+VALUES      ("intern",
+             2000,
+             10000);
+
+INSERT INTO job
+            (name,
+             min_salary,
+             max_salary)
+VALUES      ("marketing",
+             30000,
+             50000);
+
+INSERT INTO job
+            (name,
+             min_salary,
+             max_salary)
+VALUES      ("mba",
+             10000,
+             40000);
 
 -- Insert data into country table
-insert into country(name) values ("India");
-insert into country(name) values ("Australia");
-insert into country(name) values ("Europe");
-insert into country(name) values ("China");
-insert into country(name) values ("America");
+INSERT INTO country
+            (name)
+VALUES      ("india");
+
+INSERT INTO country
+            (name)
+VALUES      ("australia");
+
+INSERT INTO country
+            (name)
+VALUES      ("europe");
+
+INSERT INTO country
+            (name)
+VALUES      ("china");
+
+INSERT INTO country
+            (name)
+VALUES      ("america");
 
 -- Insert data into department table 
-insert into department(name, fk_country_id) values ("IT", 1);
-insert into department(name, fk_country_id) values ("Computer", 2);
-insert into department(name, fk_country_id) values ("IT", 3);
-insert into department(name, fk_country_id) values ("E-commerce", 4);
-insert into department(name, fk_country_id) values ("Management", 5);
+INSERT INTO department
+            (name,
+             fk_country_id)
+VALUES      ("it",
+             1);
+
+INSERT INTO department
+            (name,
+             fk_country_id)
+VALUES      ("computer",
+             2);
+
+INSERT INTO department
+            (name,
+             fk_country_id)
+VALUES      ("it",
+             3);
+
+INSERT INTO department
+            (name,
+             fk_country_id)
+VALUES      ("e-commerce",
+             4);
+
+INSERT INTO department
+            (name,
+             fk_country_id)
+VALUES      ("management",
+             5);
 
 -- Insert data into employee table
-insert into employee(firstname, lastname, email, salary, fk_department_id, fk_job_id) values ("Mayur", "Patel", "mayurpatel23@gmail.com", 10000, 1, 1);
-insert into employee(firstname, lastname, email, salary, fk_department_id, fk_job_id) values ("Rajesh", "Shah", "rajeshshah32@gmail.com", 5000, 2, 2);
-insert into employee(firstname, lastname, email, salary, fk_department_id, fk_job_id) values ("Chandresh", "Soni", "chandreshpatel23@gmail.com", 14000, 3, 3);
-insert into employee(firstname, lastname, email, salary, fk_department_id, fk_job_id) values ("Lokesh", "Bhanderi", "lokeshbh23@gmail.com", 17000, 4, 4);
-insert into employee(firstname, lastname, email, salary, fk_department_id, fk_job_id) values ("Amit", "Patel", "amitpatel23@gmail.com", 25000, 5, 5);
+INSERT INTO employee
+            (firstname,
+             lastname,
+             email,
+             salary,
+             fk_department_id,
+             fk_job_id)
+VALUES      ("mayur",
+             "patel",
+             "mayurpatel23@gmail.com",
+             10000,
+             1,
+             1);
 
--- Create select query get name (firstname + lastname) with department name, country name, job name
-SELECT concat(e.firstname, " ", e.lastname) as name, d.name as department_name, c.name as country_name, j.name as job_name FROM employee as e
-left join department as d on d.id = e.fk_department_id
-left join country as c on c.id = d.fk_country_id
-left join job as j on j.id = e.fk_job_id
-group by e.id;
+INSERT INTO employee
+            (firstname,
+             lastname,
+             email,
+             salary,
+             fk_department_id,
+             fk_job_id)
+VALUES      ("rajesh",
+             "shah",
+             "rajeshshah32@gmail.com",
+             5000,
+             2,
+             2);
+
+INSERT INTO employee
+            (firstname,
+             lastname,
+             email,
+             salary,
+             fk_department_id,
+             fk_job_id)
+VALUES      ("chandresh",
+             "soni",
+             "chandreshpatel23@gmail.com",
+             14000,
+             3,
+             3);
+
+INSERT INTO employee
+            (firstname,
+             lastname,
+             email,
+             salary,
+             fk_department_id,
+             fk_job_id)
+VALUES      ("lokesh",
+             "bhanderi",
+             "lokeshbh23@gmail.com",
+             17000,
+             4,
+             4);
+
+INSERT INTO employee
+            (firstname,
+             lastname,
+             email,
+             salary,
+             fk_department_id,
+             fk_job_id)
+VALUES      ("amit",
+             "patel",
+             "amitpatel23@gmail.com",
+             25000,
+             5,
+             5);
+
+- Create select query get name (firstname + lastname) with department name, country name, job name
+SELECT Concat(e.firstname, "", e.lastname) AS name,
+       d.name                               AS department_name,
+       c.name                               AS country_name,
+       j.name                               AS job_name
+FROM   employee AS e
+       LEFT JOIN department AS d
+              ON d.id = e.fk_department_id
+       LEFT JOIN country AS c
+              ON c.id = d.fk_country_id
+       LEFT JOIN job AS j
+              ON j.id = e.fk_job_id
+GROUP  BY e.id;
 
 -- Get 2nd highest salary of the employee
-select * from employee order by salary desc limit 1,1;
-
+SELECT *
+FROM   employee
+ORDER  BY salary DESC
+LIMIT  1, 1;
 
 -- Get all job name and department name in single query
-select j.name from job as j union select d.name from department as d; 
+SELECT name
+FROM   job
+UNION
+SELECT name
+FROM   department; 
