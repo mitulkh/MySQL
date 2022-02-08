@@ -224,7 +224,7 @@ VALUES      ("amit",
              5,
              5);
 
-- Create select query get name (firstname + lastname) with department name, country name, job name
+-- Create select query get name (firstname + lastname) with department name, country name, job name
 SELECT Concat(e.firstname, "", e.lastname) AS name,
        d.name                               AS department_name,
        c.name                               AS country_name,
